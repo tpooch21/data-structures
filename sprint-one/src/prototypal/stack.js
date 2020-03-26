@@ -12,4 +12,24 @@ var Stack = function() {
 
 var stackMethods = {};
 
+// Push method adds a string to the top of the stack
+stackMethods.push = function(value) {
+  // Determine keyToAdd using Object.keys().length, since storage keys represent array indices
+  var keyToAdd = Object.keys(this.storage).length;
+  // Add keyToAdd to storage object, with input value as value
+  this.storage[keyToAdd] = value;
+};
+
+stackMethods.pop = function() {
+  // Store last key in var lastKey
+  var lastKey = Object.keys(this.storage).length - 1;
+  // Store last value in var lastValue
+  var lastValue = this.storage[lastKey];
+  // Delete property at lastKey
+  delete this.storage[lastKey];
+  // Return lastValue
+  return lastValue;
+};
+
+
 
