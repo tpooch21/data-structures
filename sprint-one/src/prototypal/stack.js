@@ -31,5 +31,8 @@ stackMethods.pop = function() {
   return lastValue;
 };
 
-
+stackMethods.size = function() {
+  // Return length of Object keys array for storage object
+  return Object.keys(this.storage).length;
+};
 
