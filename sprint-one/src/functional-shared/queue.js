@@ -42,9 +42,9 @@ queueMethods.dequeue = function() {
 queueMethods.size = function() {
   // Return length of storage object using Object.keys()
   return Object.keys(this.storage).length;
-}
+};
 
-var queue = Queue();
+
 // queue = someInstance = {enqueue, dequeue, etc.}
 // queue.enqueue = someInstance.enqueue =
 
