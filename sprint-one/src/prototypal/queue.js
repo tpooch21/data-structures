@@ -12,7 +12,7 @@ var Queue = function() {
 
 var queueMethods = {};
 
-queueMethods.enqueue= function(value) {
+queueMethods.enqueue = function(value) {
   // Create an empty array
   var storageProps = [];
   // Iterate over storage object, and add each value to storageProps
@@ -36,6 +36,11 @@ queueMethods.dequeue = function() {
   delete this.storage[lastKey];
   // Return lastValue
   return lastValue;
-}
+};
+
+queueMethods.size = function() {
+  // Return length of storage object keys array
+  return Object.keys(this.storage).length;
+};
 
 
