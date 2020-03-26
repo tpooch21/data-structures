@@ -7,14 +7,12 @@ var Stack = function() {
   someInstance.storage = {};
 
   // Rather than defining each method within the body of Stack(), reference methods in stackMethods object
-  _.extend(someInstance, Stack.stackMethods);
-
-  return someInstance;
+  return _.extend(someInstance, stackMethods);
 
 };
 
 // Define methods within stackMethods so that interpreter only visits them once
-Stack.stackMethods = {
+var stackMethods = {
 
   push: function(value) {
     // Determine length of Object.keys(), and store in var newKey (length should equal next key to be added)
