@@ -15,15 +15,28 @@ var queueMethods = {};
 
 queueMethods.enqueue = function(value) {
   var storageProps = [];
+  // Take every value from storage and store them in storageProps array
   for (var key in this.storage) {
     storageProps.push(this.storage[key]);
   }
+  // Add input value to beginning of storageProps
   storageProps.unshift(value);
+  // Add each element from storageProps as value to storage, with key name being the index value
   for (var i = 0; i < storageProps.length; i++) {
     this.storage[i] = storageProps[i];
   }
 };
 
+queueMethods.dequeue = function() {
+  // Find lastKey using Object.keys().length
+  var lastKey = Object.keys(this.storage).length - 1;
+  // Store value at lastKey in var lastValue
+  var lastValue = this.storage[lastKey];
+  // Delete lastProperty
+  delete this.storage[lastKey];
+  // Return lastValue
+  return lastValue;
+}
 
 var queue = Queue();
 // queue = someInstance = {enqueue, dequeue, etc.}
