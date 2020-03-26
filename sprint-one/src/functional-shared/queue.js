@@ -6,6 +6,7 @@ var Queue = function() {
   // Create storage property on someInstance object
   someInstance.storage = {};
 
+  _.extend(someInstance, queueMethods);
 
   return someInstance;
 
@@ -36,6 +37,11 @@ queueMethods.dequeue = function() {
   delete this.storage[lastKey];
   // Return lastValue
   return lastValue;
+};
+
+queueMethods.size = function() {
+  // Return length of storage object using Object.keys()
+  return Object.keys(this.storage).length;
 }
 
 var queue = Queue();
