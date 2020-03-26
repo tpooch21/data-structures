@@ -20,11 +20,27 @@ Queue.prototype.enqueue = function(value) {
   // Add input value to beginning of array
   array.unshift(value);
   // Iterate over elements in array and add them as properties to storage, with property name i and property value array[i]
-    // Any properties previously sitting in storage object will be overwritten
+  // Any properties previously sitting in storage object will be overwritten
   for (var i = 0; i < array.length; i++) {
     this.storage[i] = array[i];
   }
 };
+
+Queue.prototype.dequeue = function() {
+  // Store last key of storage in var lastKey by using Object.keys().length - 1
+  var lastKey = Object.keys(this.storage).length - 1;
+  // Store last value in var lastValue
+  var lastValue = this.storage[lastKey];
+  // Delete property at lastKey
+  delete this.storage[lastKey];
+  // Return lastValue
+  return lastValue;
+};
+
+Queue.prototype.size = function() {
+  return Object.keys(this.storage).length;
+};
+
 
 
 
