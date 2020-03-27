@@ -77,4 +77,12 @@ describe('graph', function() {
     graph.removeEdge(1, 2);
     expect(graph.hasEdge(1, 2)).to.equal(false);
   });
+
+  it('should only contain unique nodes', function () {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addEdge(1, 2);
+    graph.addNode(1);
+    expect(graph.hasEdge(1, 2)).to.equal(true);
+  });
 });
