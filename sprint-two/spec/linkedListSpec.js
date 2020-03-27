@@ -52,4 +52,29 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+  //  call contains with an undefined head
+  it('should return undefined if contains receives a undefined head', function () {
+    expect(linkedList.contains(1)).to.equal(false);
+  });
+  //  call removehead  with an undefined head
+
+  it('should return undefined if removeHead receives a undefined head', function () {
+    expect(linkedList.removeHead()).to.equal(undefined);
+  });
+
+  //  when removeHead is called, it should designate a new node as the head ***
+  it ('should designate a new node as the head when current head node is removed', function() {
+    linkedList.addToTail(5);
+    linkedList.addToTail(6);
+    var nextNode = linkedList.head.next.value;
+    linkedList.removeHead();
+    var newHead = linkedList.head.value;
+    expect(newHead).to.equal(nextNode);
+  });
+  //  when calling contain with a value that doens't exist: should return false
+  it ('should return false when calling contain with a value that does not exist', function () {
+    linkedList.addToTail(5);
+    var result = linkedList.contains(6);
+    expect(result).to.equal(false);
+  });
 });
