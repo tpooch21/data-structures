@@ -2,7 +2,6 @@ describe('graph', function() {
   var graph;
 
   beforeEach(function() {
-    debugger
     graph = new Graph();
   });
 
