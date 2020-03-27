@@ -38,12 +38,20 @@ var Graph = function() {
   this.nodes = {};
 };
 
+// Graph.prototype._in = function (array, target) {
+//   for (var i = 0; i < array.length; i += 1) {
+//     if (array[i] === target) {
+//       return true;
+//     }
+//   }
 
+//   return false;
+// }
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
   // this.nodes[node] equal to a new set
   if (!(this.nodes[node])) {
-    this.nodes[node] = new Set();
+    this.nodes[node] = {};
   }
 };
 
@@ -62,13 +70,11 @@ Graph.prototype.contains = function(node) {
 Graph.prototype.removeNode = function(node) {
   // Iterate through the keys of the set at the node being passed in
   var edges = this.nodes[node];
-  edges.forEach(function(key) {
-    this.nodes[key].delete(node);
-  });
-  // var result =
-  // while ()
-  //    access those keys in our dictionary
-  //    remove the node from their sets
+  for (var key in edges) {
+    var adjacentNodeEdges = this.nodes[key];
+    delete adjacentNodeEdges[node];
+  }
+
   // remove the property at
   delete this.nodes[node];
 
@@ -80,9 +86,9 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
     return false;
   }
   // we can do a lookup fromNode in our nodes dictionary
-  var edges = this.node[fromNode];
+  var edges = this.nodes[fromNode];
   //  if toNode is in set
-  if (edges.has(toNode)) {
+  if (toNode in edges) {
     return true;
   }
   return false;
@@ -101,9 +107,9 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
   var toNodeEdges = this.nodes[toNode];
 
   // if our fromNode edge does not have toNode add conneciton to both node edges
-  if (!(fromNodeEdges.has(toNode))) {
-    fromNodeEdges.add(toNode);
-    toNodeEdges.add(fromNode);
+  if (!(toNode in fromNodeEdges)) {
+    fromNodeEdges[toNode] = 1;
+    toNodeEdges[fromNode] = 1;
   }
   //  if toNode not in set edges
   //    add toNode
@@ -121,9 +127,9 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
   var fromNodeEdges = this.nodes[fromNode];
   var toNodeEdges = this.nodes[toNode];
   //  if toNode is in fromNode set
-  if (fromNodeEdges.has(toNode)) {
-    fromNodeEdges.delete(toNode);
-    toNodeEdges.delete(fromNode);
+  if (toNode in fromNodeEdges) {
+    delete fromNodeEdges[toNode];
+    delete toNodeEdges[fromNode];
   }
   //    then remove toNode
   //   lookup toNode in our nodes dictionary

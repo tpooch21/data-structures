@@ -2,6 +2,7 @@ describe('graph', function() {
   var graph;
 
   beforeEach(function() {
+    debugger
     graph = new Graph();
   });
 
@@ -67,5 +68,14 @@ describe('graph', function() {
     expect(graph.hasEdge(1, 5)).to.equal(true);
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
+  });
+
+  it('should not add an edge between two nodes if an edge between those nodes already exists', function() {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addEdge(1, 2);
+    graph.addEdge(1, 2);
+    graph.removeEdge(1, 2);
+    expect(graph.hasEdge(1, 2)).to.equal(false);
   });
 });
