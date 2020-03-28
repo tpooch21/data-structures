@@ -44,3 +44,11 @@ setPrototype.remove = function(item) {
  Contains: O(1)
  Remove: O(1)
  */
+
+
+// TESTS
+// If we add an item, it should contain that item
+// If we remove that item, it should not contain that item
+// If we try removing an item that doesn't exist, it should do nothing
+// If we try seeing if set contains an item that doesn't exist, it should return false
+// If we add two of the same item, set should only contain one
