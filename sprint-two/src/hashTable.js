@@ -26,21 +26,17 @@
 //        else continue
 //      return undefined
 
-// TestCases:
-//
-
 
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
-  // this._storage = {get: f(), set: f()}
   this.tupleCount = 0;
 
   this.requireStorageUpdate = function () {
     var ratio = this.tupleCount / this._limit;
-    if (ratio >= .75) {
+    if (ratio > .75) {
       return {'status': 'increase'};
-    } else if (ratio <= .25) {
+    } else if (ratio < .25) {
       return {'status': 'decrease'};
     }
     return {'status': 'okay'};
@@ -48,42 +44,40 @@ var HashTable = function() {
 };
 
 HashTable.prototype.increaseStorage = function() {
-  // Multiply this.limit by 2
+  // increaseStorage: Doubles the limit, creates a new limitedArray, rehashes all the existing entries and inserting them into the new array
   this._limit *= 2;
-  // Create new instance of Limited Array(this.limit)
-  // create a temporaryStorage = this._storage;
+  this.tupleCount = 0;
   var tempStorage = this._storage;
   this._storage = new LimitedArray(this._limit);
-  // temporaryStorage.each - function(nestedArr) {
+
+  // To keep a reference to our hashTable in our callBack function
+  var currentHashTable = this;
 
   tempStorage.each(function(nestedArray) {
     if (!nestedArray) {
       return;
     }
     nestedArray.forEach(function(tuple) {
-      // debugger
-      HashTable.prototype.insert.call(this, tuple[0], tuple[1]);
-      this.insert(tuple[0], tuple[1]);
+      currentHashTable.insert(tuple[0], tuple[1]);
     });
   });
-  //      var index = indexBelowMax(tuple[0], this._limit)
 };
 
 HashTable.prototype.decreaseStorage = function() {
-  debugger;
   this._limit /= 2;
+  this.tupleCount = 0;
+
   var tempStorage = this._storage;
   this._storage = new LimitedArray(this._limit);
-  // temporaryStorage.each - function(nestedArr) {
+  var currentHashTable = this;
   tempStorage.each(function(nestedArray) {
     if (!nestedArray) {
       return;
     }
     nestedArray.forEach(function(tuple) {
-      this.insert(tuple[0], tuple[1]);
+      currentHashTable.insert(tuple[0], tuple[1]);
     });
   });
-  //      var index = indexBelowMax(tuple[0], this._limit)
 };
 
 HashTable.prototype.insert = function(k, v) {
@@ -97,6 +91,7 @@ HashTable.prototype.insert = function(k, v) {
   }
 
   var arrayAtIndex = this._storage.get(index);
+  // Check if key already exists
   for (var i = 0; i < arrayAtIndex.length; i += 1) {
     if (arrayAtIndex[i][0] === k) {
       arrayAtIndex[i][1] = v;
